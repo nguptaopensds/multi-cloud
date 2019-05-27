@@ -17,6 +17,7 @@ service S3 {
 	rpc GetBackendTypeByTier(GetBackendTypeByTierRequest) returns (GetBackendTypeByTierResponse) {}
 	rpc DeleteBucketLifecycle(DeleteLifecycleInput) returns (BaseResponse) {}
 	rpc UpdateBucket(Bucket) returns (BaseResponse) {}
+	rpc RestoreObject(RestoreObjectInput) returns (BaseResponse) {}
 }
 
 message ServerSideEncryption {
@@ -290,4 +291,9 @@ message GetBackendTypeByTierResponse {
 message DeleteLifecycleInput {
 	string Bucket = 1;
 	string ruleID = 2;
+}
+
+message RestoreObjectInput{
+    string Bucket = 1;
+    string Key = 2;
 }
