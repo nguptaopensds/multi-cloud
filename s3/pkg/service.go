@@ -409,11 +409,11 @@ func (b *s3Service) DeleteObject(ctx context.Context, in *pb.DeleteObjectInput, 
 func (b *s3Service) RestoreObject(ctx context.Context, in *pb.RestoreObjectInput, out *pb.BaseResponse) error {
 	log.Logf("Restore object is called in s3 service.")
 	/*
-	restoreObjectInput := pb.GetObjectInput{Bucket:in.Bucket, Key:in.Key}
-	object := pb.Object{}
-	err := db.DbAdapter.RestoreObject(&restoreObjectInput)
-*/
- 	return nil
+		restoreObjectInput := pb.GetObjectInput{Bucket:in.Bucket, Key:in.Key}
+		object := pb.Object{}
+		err := db.DbAdapter.RestoreObject(&restoreObjectInput)
+	*/
+	return nil
 }
 
 func (b *s3Service) DeleteBucketLifecycle(ctx context.Context, in *pb.DeleteLifecycleInput, out *pb.BaseResponse) error {

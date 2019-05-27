@@ -30,6 +30,7 @@ import (
 	"github.com/micro/go-log"
 
 	"github.com/opensds/multi-cloud/api/pkg/policy"
+
 	"github.com/opensds/multi-cloud/s3/pkg/model"
 	s3 "github.com/opensds/multi-cloud/s3/proto"
 	"golang.org/x/net/context"
@@ -96,7 +97,6 @@ func checkValidationOfActions(actions []*s3.Action) error {
 						action.Tier, minDays)
 				}
 
-
 			}
 		} else {
 			if pre.Name == ActionNameExpiration {
@@ -130,7 +130,9 @@ func (s *APIService) BucketLifecyclePut(request *restful.Request, response *rest
 
 	if body != nil {
 		createLifecycleConf := model.LifecycleConfiguration{}
+		log.Logf("Before unmarshal struct is %v\n", createLifecycleConf)
 		err := xml.Unmarshal(body, &createLifecycleConf)
+		log.Logf("After unmarshal struct is %v\n", createLifecycleConf)
 		if err != nil {
 			response.WriteError(http.StatusInternalServerError, err)
 			return

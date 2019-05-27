@@ -70,4 +70,3 @@ func (s *APIService) BucketLifecycleDelete(request *restful.Request, response *r
 	}
 	log.Log("Delete bucket lifecycle successfully.")
 }
-
