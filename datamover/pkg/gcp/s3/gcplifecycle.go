@@ -12,29 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package Gcps3mover
 
 import (
+	"errors"
+
 	"github.com/micro/go-log"
-	"github.com/micro/go-micro"
-	handler "github.com/opensds/multi-cloud/dataflow/pkg"
-	"github.com/opensds/multi-cloud/dataflow/pkg/scheduler"
-	_ "github.com/opensds/multi-cloud/dataflow/pkg/scheduler/trigger/crontrigger"
-	pb "github.com/opensds/multi-cloud/dataflow/proto"
+	. "github.com/opensds/multi-cloud/datamover/pkg/utils"
 )
 
-func main() {
-	service := micro.NewService(
-		micro.Name("dataflow"),
-	)
-
-	log.Log("Init dataflow service.")
-	service.Init()
-	pb.RegisterDataFlowHandler(service.Server(), handler.NewDataFlowService())
-	scheduler.LoadAllPlans()
-	scheduler.LoadLifecycleScheduler()
-	if err := service.Run(); err != nil {
-		log.Log(err)
-	}
+func (mover *GcpS3Mover) ChangeStorageClass(objKey *string, newClass *string, bkend *BackendInfo) error {
+	log.Log("gcp s3 change storage class of %s to %s failed.", objKey, newClass)
+	return errors.New(DMERR_InternalError)
 }
 
+func (mover *GcpS3Mover) DeleteIncompleteMultipartUpload(objKey, uploadId string, destLoca *LocationInfo) error {
+	log.Log("gcp s3 does not support to delete incomplete multipart upload.")
+
+	return errors.New(DMERR_InternalError)
+}
