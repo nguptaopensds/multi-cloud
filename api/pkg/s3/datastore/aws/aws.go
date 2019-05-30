@@ -165,7 +165,7 @@ func (ad *AwsAdapter) DELETE(object *pb.DeleteObjectInput, ctx context.Context) 
 	return NoError
 }
 
-func (ad *AwsAdapter) POST(object *pb.RestoreObjectInput, ctx context.Context) S3Error {
+func (ad *AwsAdapter) RestoreObject(object *pb.RestoreObjectInput, ctx context.Context) S3Error {
 
 	bucket := ad.backend.BucketName
 
@@ -176,11 +176,11 @@ func (ad *AwsAdapter) POST(object *pb.RestoreObjectInput, ctx context.Context) S
 	svc := awss3.New(ad.session)
 	_, err := svc.RestoreObject(&restoreInput)
 	if err != nil {
-		log.Logf("Restore object failed, err:%v\n", err)
+		log.Logf("restore object failed, err:%v\n", err)
 		return InternalError
 	}
 
-	log.Logf("Restore object %s from aws successfully.\n", newObjectKey)
+	log.Logf("restore object %s from aws successfully.\n", newObjectKey)
 
 	return NoError
 }

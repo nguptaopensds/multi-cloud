@@ -43,5 +43,5 @@ func RegisterRouter(ws *restful.WebService) {
 	ws.Route(ws.DELETE("/{bucketName}/?lifecycle").To(handler.RouteBucketDelete)).Doc("Delete lifecycle configuration from the bucket")
 
 	//Router for POST Restore object
-	ws.Route(ws.POST("/{bucketName}/{objectKey:*}").To(handler.ObjectRestorePost)).Doc("Restore object from archival storage")
+	ws.Route(ws.POST("/{bucketName}/{objectKey:*}").To(handler.ObjectRestore)).Doc("Restore object from archival storage")
 }

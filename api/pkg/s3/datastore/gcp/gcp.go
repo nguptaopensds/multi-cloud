@@ -141,7 +141,7 @@ func (ad *GcpAdapter) DELETE(object *pb.DeleteObjectInput, ctx context.Context) 
 	return NoError
 }
 
-func (ad *GcpAdapter) POST(object *pb.RestoreObjectInput, ctx context.Context) S3Error{
+func (ad *GcpAdapter) RestoreObject(object *pb.RestoreObjectInput, ctx context.Context) S3Error {
 	return NoError
 }
 
