@@ -29,6 +29,7 @@ import (
 	"golang.org/x/net/context"
 
 	"github.com/opensds/multi-cloud/api/pkg/policy"
+	. "github.com/opensds/multi-cloud/api/pkg/utils/constants"
 )
 
 func (s *APIService) ObjectRestore(request *restful.Request, response *restful.Response) {
@@ -97,11 +98,26 @@ func (s *APIService) ObjectRestore(request *restful.Request, response *restful.R
 				response.WriteError(http.StatusInternalServerError, s3err.Error())
 				return
 			}
+
+			s3restore := s3.ObjectRestoreStatus{}
+			s3restore.RestoreMarker = true
+			s3restore.RestoreState = ActionStateRestoring
+
+			objectMD.RestoreStatus = &s3restore
+
+			//log.Logf("Restore state is : %v\n", object.RestoreStatus.RestoreState)
+
+			res1, err1 := s.s3Client.UpdateObject(ctx, objectMD)
+			if err1 != nil {
+				log.Logf("object metadata restore updated successfully and response is : %v\n", res1)
+			}
+
 			res, err := s.s3Client.RestoreObject(ctx, &restoreInput)
 			if err != nil {
 				response.WriteError(http.StatusInternalServerError, err)
 				return
 			}
+
 			log.Logf("restore object %s successful.", objectKey)
 			response.WriteEntity(res)
 		} else {

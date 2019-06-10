@@ -44,4 +44,5 @@ func RegisterRouter(ws *restful.WebService) {
 
 	//Router for POST Restore object
 	ws.Route(ws.POST("/{bucketName}/{objectKey:*}").To(handler.ObjectRestore)).Doc("Restore object from archival storage")
+	ws.Route(ws.HEAD("/{bucketName}/{objectKey:*}").To(handler.ObjectHead)).Doc("Retrieve object metadata from database")
 }

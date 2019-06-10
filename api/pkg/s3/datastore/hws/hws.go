@@ -116,7 +116,8 @@ func (ad *OBSAdapter) DELETE(object *pb.DeleteObjectInput, ctx context.Context) 
 func (ad *OBSAdapter) RestoreObject(object *pb.RestoreObjectInput, ctx context.Context) S3Error {
 
 	newObjectKey := object.Bucket + "/" + object.Key
-	restoreObjectInput := obs.RestoreObjectInput{Bucket: ad.backend.BucketName, Key: newObjectKey}
+	restoreObjectInput := obs.RestoreObjectInput{Bucket: ad.backend.BucketName, Key: newObjectKey, Days: int(object.Days)}
+	log.Logf("In huawei obs database and input is :", restoreObjectInput)
 	_, err := ad.client.RestoreObject(&restoreObjectInput)
 	if err != nil {
 		log.Logf("restore object failed:%v", err)

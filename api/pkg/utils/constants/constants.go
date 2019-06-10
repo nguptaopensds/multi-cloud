@@ -48,11 +48,16 @@ const (
 
 const (
 	ExpirationMinDays           = 1
-	TransitionMinDays           = 30
+	TransitionMinDays           = 1
 	LifecycleTransitionDaysStep = 30 // The days an object should be save in the current tier before transition to the next tier
 	TransitionToArchiveMinDays  = 1
 )
 
 const (
 	Tier999                     = 999
+)
+
+const (
+	ActionStateRestoring = "restoring"
+	ActionStateRestored = "restored"
 )

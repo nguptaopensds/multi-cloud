@@ -6,6 +6,7 @@ service S3 {
 	rpc DeleteBucket(Bucket) returns (BaseResponse) {}
 	rpc GetBucket(Bucket) returns (Bucket) {}
 	rpc ListObjects(ListObjectsRequest) returns (ListObjectResponse) {}
+	rpc CountObjects(ListObjectsRequest) returns (CountObjectsResponse) {}
 	rpc CreateObject(Object) returns (BaseResponse) {}
 	rpc UpdateObject(Object) returns (BaseResponse) {}
 	rpc GetObject(GetObjectInput) returns (Object) {}
@@ -197,6 +198,12 @@ message Object {
 	string initFlag = 25;
 	string ETag = 26;
 	int32 tier = 27;
+	objectRestoreStatus restoreStatus = 28;
+}
+
+message objectRestoreStatus {
+	bool restoreMarker = 1;
+	string restoreState = 2;
 }
 
 message ListBucketsResponse {
@@ -224,6 +231,11 @@ message ListObjectsRequest {
 
 message ListObjectResponse {
 	repeated Object ListObjects = 1;
+}
+
+message CountObjectsResponse {
+	int64 Count = 1;
+	int64 Size = 2;
 }
 
 message DeleteObjectInput {
@@ -320,4 +332,9 @@ message RestoreObjectInput{
     string key = 2;
 	int32 days = 3;
 	string tier = 4;
+}
+
+message HeadObjectResponse{
+    bool restoreMarker = 1;
+    string restoreStatus = 2;
 }
