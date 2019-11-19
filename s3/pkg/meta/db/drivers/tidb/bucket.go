@@ -209,7 +209,7 @@ func (t *TidbClient) PutBucket(ctx context.Context, bucket *Bucket) error {
 	return nil
 }
 
-func (t *TidbClient) CheckAndPutBucket(ctx context.Context, bucket *Bucket) (bool, error) {
+func (t *TidbClient)  CheckAndPutBucket(ctx context.Context, bucket *Bucket) (bool, error) {
 	var processed bool
 	_, err := t.GetBucket(ctx, bucket.Name)
 	if err == nil {
@@ -226,6 +226,7 @@ func (t *TidbClient) CheckAndPutBucket(ctx context.Context, bucket *Bucket) (boo
 	_, err = t.Client.Exec(sql, args...)
 	if err != nil {
 		err = handleDBError(err)
+
 	}
 	return processed, err
 }
